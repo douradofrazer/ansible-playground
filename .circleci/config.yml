@@ -31,9 +31,13 @@ jobs:
           command: |
             apk add --update ansible
       - run:
+          name: Install openssh # resolves {"changed": false, "msg": "unpack requires a buffer of 4 bytes", "unreachable": true}
+          command: | 
+             apk add openssh-client
+      - run:
           name: Run Playbook and Configure server
           command: |
-            ansible-playbook -i inventory.txt playbook.yml
+            ansible-playbook -vvvv -i ~/inventory.txt -c ssh playbook.yml
 
 workflows:
   my_workflow:
