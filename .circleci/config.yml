@@ -71,7 +71,7 @@ jobs:
   # simulating a failure to test rollback
   smoke_test:
     docker:
-      - image: alpine:latest
+      - image: amazon/aws-cli
     steps:
       - run:
           name: Test job
