@@ -18,17 +18,17 @@ commands:
 
 jobs:
   create_infrastructure:
-      docker:
-        - image: amazon/aws-cli
-      steps:
-        - checkout
-        - run:
-            name: Create Cloudformation Stack
-            command: |
-              aws cloudformation deploy \
-                --template-file template.yml \
-                --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:7} \
-                --region us-east-1
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: Create Cloudformation Stack
+          command: |
+            aws cloudformation deploy \
+              --template-file template.yml \
+              --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:7} \
+              --region us-east-1
   
   # configure_infrastructure:
   #   docker:
@@ -70,14 +70,14 @@ jobs:
 
   # simulating a failure to test rollback
   smoke_test:
-  docker:
-    - image: alpine:latest
-  steps:
-    - run:
-        name: Test job
-        # Fail the job intentionally to simulate an error.
-        command:  return 1
-    - destroy_environment
+    docker:
+      - image: alpine:latest
+    steps:
+      - run:
+          name: Test job
+          # Fail the job intentionally to simulate an error.
+          command:  return 1
+      - destroy_environment
 
 
 workflows:
